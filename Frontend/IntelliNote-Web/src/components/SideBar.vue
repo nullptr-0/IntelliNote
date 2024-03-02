@@ -6,11 +6,14 @@
         <div class="sidebar-menu">
             <ul>
                 <RouterLink v-for="item in menuItems" :key="item.id" :to="item.route">
-                    <li @click="handleMenuItemClick(item)">
+                    <li :class="{ 'active-item': item.active }">
                         <span class="menu-item-text">{{ item.label }}</span>
                     </li>
                 </RouterLink>
             </ul>
+        </div>
+        <div class="sidebar-footer">
+            <span>&copy; 2024 IntelliNote<br />Licensed under <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a></span>
         </div>
     </div>
 </template>
@@ -21,17 +24,25 @@
         data() {
             return {
                 menuItems: [
-                    { id: 1, label: "Home", route: "/" },
-                    { id: 2, label: "Notes", route: "/notes" },
-                    { id: 3, label: "Search", route: "/search" },
-                    { id: 4, label: "Calendar", route: "/calendar" },
+                    { id: 1, label: "Home", route: "/", active: false },
+                    { id: 2, label: "Notes", route: "/notes", active: false },
+                    { id: 3, label: "Search", route: "/search", active: false },
+                    { id: 4, label: "Calendar", route: "/calendar", active: false },
                 ],
             };
         },
+        watch: {
+            '$route': 'updateActiveMenuItem'
+        },
+        mounted() {
+            this.updateActiveMenuItem();
+        },
         methods: {
-            handleMenuItemClick(item) {
-                // Handle click event for menu item
-                console.log("Clicked on", item.label);
+            updateActiveMenuItem() {
+                const currentPath = this.$route.path;
+                this.menuItems.forEach(item => {
+                    item.active = item.route === currentPath;
+                });
             },
         },
     };
@@ -47,6 +58,9 @@
         top: 0;
         left: 0;
         z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
     .sidebar-header {
@@ -75,14 +89,26 @@
                 padding: 10% 10%;
                 cursor: pointer;
                 border-radius: 20px;
+                transition-property: background-color;
+                transition-duration: 1s;
+                transition-timing-function: ease-in-out;
             }
 
                 .sidebar-menu ul li:hover {
-                    background-color: #282828;
+                    background-color: #5a5a5a;
                 }
 
                 .sidebar-menu ul li span {
                     font-size: 30px;
                     color: white;
                 }
+
+    .sidebar-footer {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .active-item {
+        background-color: #1db954;
+    }
 </style>
