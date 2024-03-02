@@ -13,7 +13,7 @@
             </ul>
         </div>
         <div class="sidebar-footer">
-            <span>&copy; 2024 IntelliNote<br />Licensed under <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a></span>
+            <span>&copy; 2024 IntelliNote Team<br />Licensed under <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a></span>
         </div>
     </div>
 </template>
