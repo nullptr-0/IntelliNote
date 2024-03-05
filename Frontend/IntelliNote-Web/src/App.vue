@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="loggedIn" id="app">
-            <Sidebar />
+            <Sidebar class="side-bar" />
             <div class="main-content">
                 <RouterView />
             </div>
@@ -77,8 +77,23 @@
         display: flex;
     }
 
+    .side-bar, .main-content {
+        height: 100%;
+        position: fixed;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .side-bar {
+        width: 25%;
+        left: 0;
+    }
+
     .main-content {
-        flex: 1;
-        padding-left: 25%; /* Adjust the padding to accommodate the sidebar width */
+        width: 75%;
+        left: 25%;
     }
 </style>

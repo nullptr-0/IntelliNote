@@ -50,17 +50,8 @@
 
 <style scoped>
     .sidebar {
-        width: 25%;
-        height: 100%;
         background-color: #040306;
         color: #fff;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 1000;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
     }
 
     .sidebar-header {
