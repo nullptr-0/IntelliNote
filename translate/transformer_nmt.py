@@ -355,7 +355,7 @@ class PositionwiseFeedForward(nn.Module):
         return x
 
 
-
+'''
 emb_dim = 64
 max_seq_len = 100
 seq_len = 20
@@ -373,7 +373,7 @@ y = positional_encoding.to("cpu").numpy()
 plt.plot(np.arange(seq_len), y[0, :, 0 : 64 : 8], ".")
 plt.legend(["dim %d" % p for p in [0, 7, 15, 31, 63]])
 plt.show()
-
+'''
 
 
 class EncoderLayer(nn.Module):
@@ -468,11 +468,11 @@ def subsequent_mask(size):
     subsequent_mask = np.triu(np.ones(attn_shape), k=1).astype('uint8')
     # 返回一个右上角(不含主对角线)为全False，左下角(含主对角线)为全True的subsequent_mask矩阵
     return torch.from_numpy(subsequent_mask) == 0
-
+'''
 plt.figure(figsize=(5, 5))
 plt.imshow(subsequent_mask(20)[0])
 plt.show()
-
+'''
 
 class Batch:
     """
