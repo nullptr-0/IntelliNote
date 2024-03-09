@@ -2,6 +2,9 @@
   <div class="markdown-container">
     <textarea class="markdown-input" v-model="inputText" placeholder="Enter your Markdown here..." rows="10"></textarea>
     <div class="markdown-output" v-html="parsedMarkdown"></div>
+    <i class="fas fa-play-circle" @click="speakMarkdown"></i>
+    <button class="play-button" @click="speakMarkdown">Play</button>
+    <button class="send-button" @click="sendToBackend">Translate</button>
   </div>
 </template>
 
@@ -48,8 +51,28 @@ export default {
       parsedText = parsedText.replace(/^\s*>\s(.*)$/gm, '<blockquote>$1</blockquote>');
 
       return parsedText;
+    },
+    speakMarkdown() {
+      // 创建朗读实例
+      const utterance = new SpeechSynthesisUtterance(this.parsedMarkdown);
+      // 开始朗读
+      window.speechSynthesis.speak(utterance);
     }
   },
+  sendToBackend() {
+      // 发送请求到后端
+      // 请替换以下代码为实际发送请求的逻辑
+      // 假设您使用的是 axios 库
+      axios.post('/your/backend/endpoint', { html: this.parsedMarkdown })
+        .then(response => {
+          // 处理后端响应
+          console.log(response.data);
+        })
+        .catch(error => {
+          // 处理错误
+          console.error('Error sending request:', error);
+        });
+    },
   watch: {
     inputText(newInput) {
       this.parsedMarkdown = this.parseMarkdown(newInput);
@@ -57,6 +80,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+/* Add CSS styles for the component */
+</style>
+
 
 <style scoped>
 /* Add CSS styles for the component */
@@ -102,5 +130,19 @@ blockquote {
   border-left: 4px solid #ccc;
   padding: 10px;
   margin-left: 0;
+}
+
+.play-button, .send-button {
+  padding: 12px 24px;
+  background-color: #6c6;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 20px
+}
+
+.play-button:hover, .send-button:hover {
+  background-color: #f0f0f0;
 }
 </style>
